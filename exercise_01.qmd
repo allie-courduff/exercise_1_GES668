@@ -1,0 +1,227 @@
+---
+title: "Exercise 01"
+subtitle: "Coding basics and exploring `sf` objects"
+order: 1
+status: available
+date-due: 2024-09-06
+date-modified: last-modified
+error: true
+---
+
+::: callout-tip
+## Practice these skills
+
+-   Confirm that you understand some coding basics
+-   Use the `?` operator to access function and package documentation
+-   Use `class()`, `names()`, `attributes()`, and `summary()` functions to explore `sf` and `sfc` objects
+-   Use the base `plot()` function to visualize a `sf` object
+:::
+
+----
+
+## Getting started
+
+### Packages
+
+You need the `{sf}`, `{tidyverse}`, and `{spData}` packages installed to complete this exercise. If they aren't installed, install them now by copying the following lines into the console to install all three packages (don't forget to restart your session afterwards):
+
+```
+install.packages(c("tidyverse", "sf", "spData"))
+```
+
+After restarting make sure to load the `sf` and `tidyverse` library:
+
+```{r}
+#| eval: true
+library(tidyverse)
+library(sf)
+```
+
+### Datas
+
+This exercise uses the `nc` North Carolina SIDS dataset that is included with the sf package. We can use the `sf::st_read()` function to load it from a shapefile:
+
+```{r}
+#| eval: true
+nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), as_tibble = TRUE)
+```
+
+## Exercises
+
+This week's exercise is mostly "fill in the blank" questions and coding exercises. You can expect fewer hints and more freedom to experiment in future exercises!
+
+There are periodic reminders in this assignment to remind you to **render, commit, and push** your changes to GitHub as you complete the exercise. You should have at least three commits with meaningful commit messages by the end of the assignment. Take a look at the [RStudio documentation on version control](https://docs.posit.co/ide/user/ide/guide/tools/version-control.html#getting-started) for more details on how to commit and push changes.
+
+### Coding basics
+
+*The exercises in this section are from [Ch. 3 Workflow: basics](https://r4ds.hadley.nz/workflow-basics.html) in R for Data Science (2e). If you have any trouble with the next couple exercises, please review the chapter before continuing to the next section.*
+
+Why does this code not work? __The code below does not work to display the given 10 value to my variable because it is mispelled, without a proper "i" in vairable. Upon retyping it with regular letters, it works.__
+
+```{r}
+my_variable <- 10
+my_varıable
+my_variable
+```
+
+------------------------------------------------------------------------
+
+Tweak each of the following R commands so that they run correctly:
+
+```{r}
+#libary(todyverse) "Library" is mispelled without the first "r", and tidyverse" is misspelled with an "o" instead of an "i".
+library(tidyverse)
+
+ggplot(dTA = mpg) + 
+  geom_point(maping = aes(x = displ, y = hwy)) +
+  geom_smooth(method = lm)
+```
+
+------------------------------------------------------------------------
+
+Press <kbd>⌥ + ⇧ + K</kbd> or <kbd>⎇ + ⇧ + K</kbd>.
+
+What happens? ____
+
+How can you get to the same place using the menus? ____
+
+------------------------------------------------------------------------
+
+::: callout-tip
+Render, commit, and push your changes to GitHub with the commit message "Added answers for coding basics questions".
+
+Make sure to commit and push all changed files so that your Git pane is empty afterwards.
+:::
+
+### Look up documentation
+
+`?` is an operator that you can use to pull up documentation on a function, dataset, or other topic in the Help tab pane of the [RStudio IDE](https://rstudio.github.io/cheatsheets/html/rstudio-ide.html). For example, running the code: `?sf::st_read` will pull up the documentation on a set of functions for read simple features or layers from a file or database.
+
+Use `?` to access the documentation on `sf::st_geometry()` then look for the "Value" heading that provides information about the value returned by the function.
+
+What type of object does `sf::st_geometry()` return? \_\_\_\_
+
+What is one *other* function documented on the same page? \_\_\_\_
+
+::: {.callout-tip collapse="false" appearance="default"}
+Review [Ch. 9 Workflow: getting help](https://r4ds.hadley.nz/workflow-help) in R for Data Science (2e) for more information about getting help when you struggle with a package, function, or project.
+:::
+
+### Explore `sf` and `sfc` objects
+
+Every object in R has at least one class:
+
+```{r}
+#| eval: true
+class(1)
+class("A")
+class(TRUE)
+```
+
+Vectors, lists, data frames, and other objects can also have names and attributes. This is a named character vector:
+
+```{r}
+#| eval: true
+names(c("A" = "apple"))
+```
+
+A `sf` object is a `data.frame` but it also has a special `sf` class that is [designed to implement the formal simple features](https://r-spatial.github.io/sf/articles/sf1.html) standard in R:
+
+```{r}
+#| eval: true
+class(nc)
+```
+
+As a data frame, a `sf` object has column names (which you can access with `names()` or `colnames()`):
+
+```{r}
+#| eval: true
+colnames(nc)
+```
+
+------------------------------------------------------------------------
+
+Next, we should run `st_geometry()` on `nc`:
+
+```{r}
+#| eval: true
+nc_geometry <- st_geometry(nc)
+```
+
+Now, use `class()` to find out what type of object `st_geometry()` returned:
+
+```{r}
+____
+```
+
+This object is a special type of list. You can subset one or more items from a list using a single or double set of square brackets like this:
+
+```{r}
+#| eval: true
+nc_geometry[1]
+
+nc_geometry[[1]]
+```
+
+Take a look at the attributes for this list using `attributes()`:
+
+```{r}
+____(nc_geometry)
+```
+
+Now, use `class()` one more time to find out what type of objects make up `nc_geometry`:
+
+```{r}
+____(nc_geometry[[1]])
+```
+
+----
+
+`summary()` is another way to get information about names and attributes all at once. Try using `summary()` on `nc_geometry`:
+
+```{r}
+summary(____)
+```
+
+Review the results and try to answer the following:
+
+-   What is the geometry type? \_\_\_\_
+-   What is the coordinate reference system? \_\_\_\_
+-   How many features? \_\_\_\_
+
+::: callout-tip
+Now is another good time to render, commit, and push your changes to GitHub with a meaningful commit message.
+
+Once again, make sure to commit and push all changed files so that your Git pane is empty afterwards.
+:::
+
+### Visualize `sf` objects
+
+Some packages come with data we can use as soon as the package is loaded.
+
+Load the `{spData}` packages using `library()` then make a plot of the `us_states` data:
+
+```{r}
+library(____)
+
+plot(____)
+```
+
+Can you use `plot()` to make a map of states color-coded by region?
+
+```{r}
+plot(____)
+```
+
+**Optional:** can you use `ggplot()` and `geom_sf()` to create a plot of `us_states` color-coded by total population in 2015? Here is part of the code to start with:
+
+```{r}
+ggplot() +
+  geom_sf()
+```
+
+::: callout-tip
+Render, commit, and push your final changes to GitHub with a meaningful commit message.
+
+Make sure to commit and push all changed files so that your Git pane is empty afterwards.
+:::
