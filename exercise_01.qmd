@@ -216,22 +216,29 @@ Some packages come with data we can use as soon as the package is loaded.
 Load the `{spData}` packages using `library()` then make a plot of the `us_states` data:
 
 ```{r}
-library(____)
+#install.packages("spData")
+library(spData)
 
-plot(____)
+plot(us_states)
 ```
 
 Can you use `plot()` to make a map of states color-coded by region?
 
 ```{r}
-plot(____)
+view(us_states)
+
+# plot(us_states, data = REGION) nope
+# plot(us_states, col = REGION) cant tell it region as a color
+plot(us_states["REGION"])
 ```
 
 **Optional:** can you use `ggplot()` and `geom_sf()` to create a plot of `us_states` color-coded by total population in 2015? Here is part of the code to start with:
 
 ```{r}
-ggplot() +
+ggplot(data = us_states, mapping = aes(fill = total_pop_15)) +
   geom_sf()
+
+#I found the needed extra wording for the ggplot() command in the ggplot2: Elegant Graphics for Data Analysis textbook under the Layer Maps (6.2.1) subsection.
 ```
 
 ::: callout-tip
