@@ -17,7 +17,7 @@ error: true
 -   Use the base `plot()` function to visualize a `sf` object
 :::
 
-----
+------------------------------------------------------------------------
 
 ## Getting started
 
@@ -25,7 +25,7 @@ error: true
 
 You need the `{sf}`, `{tidyverse}`, and `{spData}` packages installed to complete this exercise. If they aren't installed, install them now by copying the following lines into the console to install all three packages (don't forget to restart your session afterwards):
 
-```
+```         
 install.packages(c("tidyverse", "sf", "spData"))
 ```
 
@@ -56,7 +56,7 @@ There are periodic reminders in this assignment to remind you to **render, commi
 
 *The exercises in this section are from [Ch. 3 Workflow: basics](https://r4ds.hadley.nz/workflow-basics.html) in R for Data Science (2e). If you have any trouble with the next couple exercises, please review the chapter before continuing to the next section.*
 
-Why does this code not work? __The code below does not work to display the given 10 value to my variable because it is mispelled, without a proper "i" in vairable. Upon retyping it with regular letters, it works.__
+Why does this code not work? **The code below does not work to display the given 10 value to my variable because it is mispelled, without a proper "i" in vairable. Upon retyping it with regular letters, it works.**
 
 ```{r}
 my_variable <- 10
@@ -72,18 +72,23 @@ Tweak each of the following R commands so that they run correctly:
 #libary(todyverse) "Library" is mispelled without the first "r", and tidyverse" is misspelled with an "o" instead of an "i".
 library(tidyverse)
 
-ggplot(dTA = mpg) + 
-  geom_point(maping = aes(x = displ, y = hwy)) +
-  geom_smooth(method = lm)
+ggplot(data = mpg, 
+  mapping = aes(x = displ, y = hwy)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+
+#Had to fix some spelling mistakes and reorganize the commands to fit the examples given in the textbook (in correct order with necessary commas and plus signs included when needed)
 ```
 
 ------------------------------------------------------------------------
 
 Press <kbd>⌥ + ⇧ + K</kbd> or <kbd>⎇ + ⇧ + K</kbd>.
 
-What happens? ____
+What happens? 
+I swear, I do not know what those symbols are. I tried looking it up and it said it was the option key, and I can guess the others are the up arrow and the letter K? But when I do that, all it generates are little degree symbols, so I imagine, I'm misunderstanding the symbols.
 
-How can you get to the same place using the menus? ____
+How can you get to the same place using the menus? 
+Again, can't answer, but looking at the IDE cheatsheet shown in class, using mixtures of the arrow keys and control/command keys allows for either moving between desktop views and navigating lines. For layout commands that can toggle different panels, such as plots, packages, history, environment, or console, it is the control key and a numerical key.
 
 ------------------------------------------------------------------------
 
@@ -175,7 +180,7 @@ Now, use `class()` one more time to find out what type of objects make up `nc_ge
 ____(nc_geometry[[1]])
 ```
 
-----
+------------------------------------------------------------------------
 
 `summary()` is another way to get information about names and attributes all at once. Try using `summary()` on `nc_geometry`:
 
