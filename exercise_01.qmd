@@ -85,10 +85,10 @@ ggplot(data = mpg,
 Press <kbd>⌥ + ⇧ + K</kbd> or <kbd>⎇ + ⇧ + K</kbd>.
 
 What happens? 
-I swear, I do not know what those symbols are. I tried looking it up and it said it was the option key, and I can guess the others are the up arrow and the letter K? But when I do that, all it generates are little degree symbols, so I imagine, I'm misunderstanding the symbols.
+ANSWER: I swear, I do not know what those symbols are. I tried looking it up and it said it was the option key, and I can guess the others are the up arrow and the letter K? But when I do that, all it generates are little degree symbols, so I imagine, I'm misunderstanding the symbols.
 
 How can you get to the same place using the menus? 
-Again, can't answer, but looking at the IDE cheatsheet shown in class, using mixtures of the arrow keys and control/command keys allows for either moving between desktop views and navigating lines. For layout commands that can toggle different panels, such as plots, packages, history, environment, or console, it is the control key and a numerical key.
+ANSWER: Again, can't answer, but looking at the IDE cheatsheet shown in class, using mixtures of the arrow keys and control/command keys allows for either moving between desktop views and navigating lines. For layout commands that can toggle different panels, such as plots, packages, history, environment, or console, it is the control key and a numerical key.
 
 ------------------------------------------------------------------------
 
@@ -104,9 +104,11 @@ Make sure to commit and push all changed files so that your Git pane is empty af
 
 Use `?` to access the documentation on `sf::st_geometry()` then look for the "Value" heading that provides information about the value returned by the function.
 
-What type of object does `sf::st_geometry()` return? \_\_\_\_
+What type of object does `sf::st_geometry()` return? 
+ANSWER: From the information given in help panel after using the '?' operator, "It returns an object if class sfc, a list-column with geometries."
 
-What is one *other* function documented on the same page? \_\_\_\_
+What is one *other* function documented on the same page? 
+ANSWER: st_set_geometry is another function domumented on the help page.
 
 ::: {.callout-tip collapse="false" appearance="default"}
 Review [Ch. 9 Workflow: getting help](https://r4ds.hadley.nz/workflow-help) in R for Data Science (2e) for more information about getting help when you struggle with a package, function, or project.
@@ -133,7 +135,10 @@ names(c("A" = "apple"))
 A `sf` object is a `data.frame` but it also has a special `sf` class that is [designed to implement the formal simple features](https://r-spatial.github.io/sf/articles/sf1.html) standard in R:
 
 ```{r}
+library(sf)
 #| eval: true
+nc <- st_read(system.file("shape/nc.shp", package="sf"))
+# Added the above line from the textbook to generate the nc data frame in the environment for the following coding chunks' use.
 class(nc)
 ```
 
@@ -156,7 +161,8 @@ nc_geometry <- st_geometry(nc)
 Now, use `class()` to find out what type of object `st_geometry()` returned:
 
 ```{r}
-____
+class(nc_geometry)
+# The object created through the st_geometry function is a "sfc_MULTIPOLYGON".
 ```
 
 This object is a special type of list. You can subset one or more items from a list using a single or double set of square brackets like this:
@@ -171,13 +177,13 @@ nc_geometry[[1]]
 Take a look at the attributes for this list using `attributes()`:
 
 ```{r}
-____(nc_geometry)
+attributes(nc_geometry)
 ```
 
 Now, use `class()` one more time to find out what type of objects make up `nc_geometry`:
 
 ```{r}
-____(nc_geometry[[1]])
+class(nc_geometry[[1]])
 ```
 
 ------------------------------------------------------------------------
@@ -185,14 +191,17 @@ ____(nc_geometry[[1]])
 `summary()` is another way to get information about names and attributes all at once. Try using `summary()` on `nc_geometry`:
 
 ```{r}
-summary(____)
+summary(nc_geometry)
 ```
 
 Review the results and try to answer the following:
 
--   What is the geometry type? \_\_\_\_
--   What is the coordinate reference system? \_\_\_\_
--   How many features? \_\_\_\_
+-   What is the geometry type? 
+ANSWER: The geometry type is a multipolygon.
+-   What is the coordinate reference system? 
+ANSWER: The code given for the coordinate reference system is 4267, which when you look it up it is "NAD27, a geodetic coordinate system for North and Central America." (ESPG.io)
+-   How many features?
+ANSWER: There are 100 features.
 
 ::: callout-tip
 Now is another good time to render, commit, and push your changes to GitHub with a meaningful commit message.
